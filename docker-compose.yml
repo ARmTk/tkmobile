@@ -1,0 +1,33 @@
+services:
+  website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: phuket-mobile-repair-website
+    container_name: phuket-mobile-repair
+    restart: unless-stopped
+    networks:
+      - tk-proxy
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.phuket-mobile-repair.rule=Host(`tkmobileservice.com`)
+      - traefik.http.routers.phuket-mobile-repair.entrypoints=websecure
+      - traefik.http.routers.phuket-mobile-repair.tls.certresolver=letsencrypt
+      - traefik.http.routers.phuket-mobile-repair-www.rule=Host(`www.tkmobileservice.com`)
+      - traefik.http.routers.phuket-mobile-repair-www.entrypoints=websecure
+      - traefik.http.routers.phuket-mobile-repair-www.tls.certresolver=letsencrypt
+      - traefik.http.routers.phuket-mobile-repair-www.middlewares=www-to-nonwww
+      - traefik.http.middlewares.www-to-nonwww.redirectregex.regex=^https?://www\\.tkmobileservice\\.com/(.*)
+      - traefik.http.middlewares.www-to-nonwww.redirectregex.replacement=https://tkmobileservice.com/$${1}
+      - traefik.http.middlewares.www-to-nonwww.redirectregex.permanent=true
+      - traefik.http.services.phuket-mobile-repair.loadbalancer.server.port=80
+      - traefik.docker.network=tk-proxy
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+networks:
+  tk-proxy:
+    external: true

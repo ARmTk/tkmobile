@@ -1,0 +1,31 @@
+import { MapPin, Phone } from "lucide-react";
+import type { Locale } from "@/config/site";
+import { chatLink, site } from "@/config/site";
+import { copy, localPath } from "@/lib/i18n";
+import { Logo } from "./logo";
+import { TrackedLink } from "./tracked-link";
+
+export function Footer({ locale }: { locale: Locale }) {
+  const c = copy[locale];
+  return (
+    <>
+      <footer className="footer">
+        <div className="footer-grid shell">
+          <div><Logo locale={locale} /><p>{locale === "en" ? "Quality repairs. Transparent choices." : "งานซ่อมคุณภาพ ทางเลือกที่โปร่งใส"}</p></div>
+          <div><h2>{locale === "en" ? "Visit" : "หน้าร้าน"}</h2><p>{site.address[locale]}</p><p>{c.open}<br />{c.closed}</p></div>
+          <div><h2>{locale === "en" ? "Contact" : "ติดต่อ"}</h2><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a><br /><a href={site.social.line}>LINE {site.lineId}</a><br /><a href={site.social.whatsapp}>WhatsApp</a></div>
+          <div><h2>{locale === "en" ? "Information" : "ข้อมูล"}</h2><a href={localPath(locale, "services")}>{c.nav.services}</a><br /><a href={localPath(locale, "location")}>{c.nav.location}</a><br /><a href={localPath(locale, "privacy")}>{locale === "en" ? "Privacy" : "ความเป็นส่วนตัว"}</a></div>
+        </div>
+        <div className="footer-bottom shell">
+          <span>© {new Date().getFullYear()} TK Mobile Service</span>
+          <span>{locale === "en" ? "Independent repair business. Not Apple Authorized." : "ร้านซ่อมอิสระ ไม่ใช่ศูนย์บริการที่ได้รับอนุญาตจาก Apple"}</span>
+        </div>
+      </footer>
+      <div className="mobile-actions" aria-label="Quick contact">
+        <TrackedLink event="click_call" href={`tel:${site.phoneE164}`}><Phone /><span>{c.call}</span></TrackedLink>
+        <TrackedLink event={locale === "en" ? "click_whatsapp" : "click_line"} className="primary" href={chatLink(locale)} target="_blank" rel="noreferrer"><span className="chat-glyph">↗</span><span>{c.chat}</span></TrackedLink>
+        <TrackedLink event="click_directions" href={site.social.maps} target="_blank" rel="noreferrer"><MapPin /><span>{c.directions}</span></TrackedLink>
+      </div>
+    </>
+  );
+}

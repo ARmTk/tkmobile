@@ -1,0 +1,9 @@
+{
+  "name": "TK Mobile Service",
+  "short_name": "TK Mobile",
+  "start_url": "/en/",
+  "display": "standalone",
+  "background_color": "#f7f7f3",
+  "theme_color": "#11120f",
+  "lang": "en"
+}
