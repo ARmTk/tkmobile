@@ -67,6 +67,7 @@ export function RepairPlanner({ locale }: { locale: Locale }) {
               className={active === key ? "active" : ""}
               onClick={() => setActive(key)}
             >
+              <span className="repair-tab-image"><Image src={repairOptions[key].image} alt="" fill sizes="(max-width: 760px) 28vw, 120px" /></span>
               <TabIcon /><span>{repairOptions[key][locale].tab}</span>
             </button>
           );
