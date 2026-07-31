@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowRight, Boxes, Check, Clock3, Droplets, GraduationCap, MapPin, MessageCircle, PackageCheck, ShieldCheck, Smartphone, Wrench, X } from "lucide-react";
 import { notFound } from "next/navigation";
 import { ContactStrip } from "@/components/contact-strip";
@@ -60,7 +61,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 }
 
 function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: string; intro: string }) {
-  return <section className="page-hero"><div className="shell"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{intro}</p></div></section>;
+  return <section className="page-hero"><div className="shell page-hero-inner"><div className="page-hero-copy"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{intro}</p></div><div className="page-hero-workshop" aria-label="Workshop visual concept"><Image src="/images/tk-mobile-workshop-concept-v1.png" alt="Premium mobile repair workshop visual concept" fill sizes="(max-width: 760px) 92vw, 42vw" priority /><span>AI VISUAL CONCEPT</span></div></div></section>;
 }
 
 function ServicesPage({ locale }: { locale: Locale }) {
