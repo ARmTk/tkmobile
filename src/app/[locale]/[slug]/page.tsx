@@ -60,8 +60,26 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
   };
 }
 
-function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: string; intro: string }) {
-  return <section className="page-hero"><div className="shell page-hero-inner"><div className="page-hero-copy"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{intro}</p></div><div className="page-hero-workshop" aria-label="Workshop visual concept"><Image src="/images/tk-mobile-workshop-concept-v1.png" alt="Premium mobile repair workshop visual concept" fill sizes="(max-width: 760px) 92vw, 42vw" priority /><span>AI VISUAL CONCEPT</span></div></div></section>;
+type HeroVisual = { src: string; alt: string; label: string };
+
+function PageHero({ eyebrow, title, intro, visual }: { eyebrow: string; title: string; intro: string; visual?: HeroVisual }) {
+  const heroVisual = visual ?? { src: "/images/tk-mobile-workshop-concept-v1.png", alt: "Premium mobile repair workshop visual concept", label: "AI VISUAL CONCEPT" };
+  return <section className="page-hero"><div className="shell page-hero-inner"><div className="page-hero-copy"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{intro}</p></div><div className="page-hero-workshop" aria-label={heroVisual.alt}><Image src={heroVisual.src} alt={heroVisual.alt} fill sizes="(max-width: 760px) 92vw, 42vw" priority /><span>{heroVisual.label}</span></div></div></section>;
+}
+
+function repairHeroVisual(slug: string, locale: Locale): HeroVisual | undefined {
+  const en = locale === "en";
+  const label = en ? "AI VISUAL CONCEPT" : "ภาพแนวคิด AI";
+  const visuals: Record<string, HeroVisual> = {
+    "iphone-screen-repair": { src: "/images/repair-screen-concept-v1.png", alt: en ? "Screen replacement repair visual" : "ภาพงานเปลี่ยนหน้าจอ", label },
+    "iphone-battery-replacement": { src: "/images/repair-battery-concept-v1.png", alt: en ? "Battery replacement repair visual" : "ภาพงานเปลี่ยนแบตเตอรี่", label },
+    "logic-board-repair": { src: "/images/repair-board-concept-v1.png", alt: en ? "Logic board repair visual" : "ภาพงานซ่อมเมนบอร์ด", label },
+    "liquid-damage": { src: "/images/repair-liquid-concept-v1.png", alt: en ? "Liquid damage repair visual" : "ภาพงานเครื่องตกน้ำ", label },
+    "iphone-repair-patong": { src: "/images/tk-mobile-workshop-concept-v1.png", alt: en ? "Premium mobile repair workshop visual" : "ภาพเวิร์กช็อปซ่อมมือถือ", label },
+    "ipad-repair": { src: "/images/repair-screen-concept-v1.png", alt: en ? "Tablet screen repair visual" : "ภาพงานซ่อมหน้าจอแท็บเล็ต", label },
+    "macbook-repair": { src: "/images/repair-board-concept-v1.png", alt: en ? "Advanced electronics repair visual" : "ภาพงานซ่อมอิเล็กทรอนิกส์ขั้นสูง", label }
+  };
+  return visuals[slug];
 }
 
 function ServicesPage({ locale }: { locale: Locale }) {
@@ -106,7 +124,7 @@ function ServicesPage({ locale }: { locale: Locale }) {
 function LiquidPage({ locale }: { locale: Locale }) {
   const en = locale === "en";
   return <>
-    <PageHero eyebrow={en ? "LIQUID DAMAGE" : "เครื่องตกน้ำ"} title={en ? "Two service levels. No false promises." : "2 ระดับบริการ โดยไม่ให้ความหวังเกินจริง"} intro={en ? "Liquid damage is unpredictable. We explain what each option includes, what it does not include, and when testing should stop for safety." : "ความเสียหายจากน้ำคาดเดาไม่ได้ ร้านอธิบายสิ่งที่รวม ไม่รวม และจุดที่ต้องหยุดทดสอบเพื่อความปลอดภัย"} />
+    <PageHero eyebrow={en ? "LIQUID DAMAGE" : "เครื่องตกน้ำ"} title={en ? "Two service levels. No false promises." : "2 ระดับบริการ โดยไม่ให้ความหวังเกินจริง"} intro={en ? "Liquid damage is unpredictable. We explain what each option includes, what it does not include, and when testing should stop for safety." : "ความเสียหายจากน้ำคาดเดาไม่ได้ ร้านอธิบายสิ่งที่รวม ไม่รวม และจุดที่ต้องหยุดทดสอบเพื่อความปลอดภัย"} visual={repairHeroVisual("liquid-damage", locale)} />
     <section className="section shell">
       <div className="emergency-note"><Droplets /><div><b>{en ? "Right now" : "ควรทำทันที"}</b><p>{en ? "Switch the device off if safe. Do not charge, heat or repeatedly power it on. Message us with the model, liquid type and time of exposure." : "ปิดเครื่องเมื่อทำได้อย่างปลอดภัย ห้ามชาร์จ เป่าร้อน หรือเปิดซ้ำ แจ้งรุ่น ชนิดของของเหลว และเวลาที่เกิดเหตุผ่านแชต"}</p></div></div>
       <div className="comparison-grid">
@@ -136,7 +154,7 @@ function LocationPage({ locale }: { locale: Locale }) {
   const locationSchema = { "@context": "https://schema.org", "@type": "ContactPage", name: meta.location[locale][0], url: `${site.url}/${locale}/location/`, mainEntity: { "@id": `${site.url}/#business` } };
   return <>
     <JsonLd data={locationSchema} />
-    <PageHero eyebrow="PATONG · PHUKET" title={en ? "Easy to find. Clear before you send." : "เดินทางง่าย ส่งเครื่องอย่างชัดเจน"} intro={en ? "Walk in during opening hours, arrange your own Grab delivery within Phuket, or confirm by chat before sending a parcel." : "Walk-in ในเวลาเปิดร้าน เรียก Grab ส่งเองภายในภูเก็ต หรือยืนยันผ่านแชตก่อนส่งพัสดุ"} />
+    <PageHero eyebrow="PATONG · PHUKET" title={en ? "Easy to find. Clear before you send." : "เดินทางง่าย ส่งเครื่องอย่างชัดเจน"} intro={en ? "Walk in during opening hours, arrange your own Grab delivery within Phuket, or confirm by chat before sending a parcel." : "Walk-in ในเวลาเปิดร้าน เรียก Grab ส่งเองภายในภูเก็ต หรือยืนยันผ่านแชตก่อนส่งพัสดุ"} visual={{ src: "/images/tk-mobile-storefront-hero-v2.webp", alt: en ? "TK Mobile Service storefront in Patong" : "ภาพหน้าร้าน TK Mobile Service ป่าตอง", label: en ? "STOREFRONT VISUAL" : "ภาพหน้าร้าน" }} />
     <section className="section shell location-grid">
       <div>
         <span className="eyebrow">{en ? "SHOP ADDRESS" : "ที่อยู่ร้าน"}</span><h2>{site.address[locale]}</h2>
@@ -219,7 +237,7 @@ function SeoLandingPage({ locale, page }: { locale: Locale; page: SeoPage }) {
   ];
   return <>
     <JsonLd data={schema} />
-    <PageHero eyebrow={page.eyebrow[locale]} title={page.h1[locale]} intro={page.intro[locale]} />
+    <PageHero eyebrow={page.eyebrow[locale]} title={page.h1[locale]} intro={page.intro[locale]} visual={repairHeroVisual(page.slug, locale)} />
     <section className="section shell seo-service-intro">
       <div>
         <span className="eyebrow">{en ? "WHAT TO EXPECT" : "สิ่งที่ควรรู้"}</span>
