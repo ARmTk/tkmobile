@@ -46,7 +46,7 @@ svg { width: 1.25em; height: 1.25em; stroke-width: 1.8; }
 .logo-mark i { position: absolute; right: 0; bottom: 3px; width: 34px; height: 7px; background: var(--yellow); transform: skew(-28deg); }
 .logo-type { display: grid; line-height: 1; }
 .logo-type strong { font-size: .93rem; letter-spacing: -.04em; }
-.logo-type small { margin-top: .27rem; color: #797a73; font-size: .58rem; font-weight: 800; letter-spacing: .27em; }
+.logo-type small { margin-top: .27rem; color: #64655e; font-size: .58rem; font-weight: 800; letter-spacing: .27em; }
 .nav { display: flex; align-items: center; gap: 1.35rem; }
 .nav > a:not(.button) { font-size: .76rem; font-weight: 700; }
 .nav > a:hover { color: #8a7200; }
@@ -90,7 +90,7 @@ svg { width: 1.25em; height: 1.25em; stroke-width: 1.8; }
 .service-card:hover { position: relative; z-index: 2; background: var(--white); transform: translateY(-5px); box-shadow: var(--shadow); }
 .service-icon { width: 54px; height: 54px; margin-bottom: 3.7rem; display: grid; place-items: center; border-radius: .9rem; background: var(--yellow); }
 .service-icon svg { width: 1.7rem; height: 1.7rem; }
-.service-card small { color: #8b8c83; font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.service-card small { color: #63645d; font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .service-card h3 { margin: .5rem 0 1rem; font-size: 1.55rem; letter-spacing: -.035em; }
 .service-card p { color: var(--muted); font-size: .9rem; line-height: 1.65; }
 .service-card .card-link { margin-top: auto; }
@@ -119,8 +119,8 @@ svg { width: 1.25em; height: 1.25em; stroke-width: 1.8; }
 .timing-list { border-top: 1px solid #c8c9c1; }
 .timing-list > div { padding-block: 1.2rem; display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid #c8c9c1; }
 .timing-list b { font-size: .86rem; }
-.timing-list span { color: #77786f; text-align: right; font-size: .82rem; }
-.timing-list small { display: block; margin-top: 1rem; color: #77786f; line-height: 1.6; }
+.timing-list span { color: #606159; text-align: right; font-size: .82rem; }
+.timing-list small { display: block; margin-top: 1rem; color: #606159; line-height: 1.6; }
 
 .location-preview { padding-block: clamp(5rem, 10vw, 9rem); display: grid; grid-template-columns: .9fr 1.1fr; gap: 8%; align-items: center; }
 .parking-note { margin: 1.7rem 0; padding: 1rem 1.15rem; border-left: 3px solid var(--yellow); color: #5c5d55; background: #ecece6; font-size: .85rem; line-height: 1.6; }
@@ -153,10 +153,11 @@ svg { width: 1.25em; height: 1.25em; stroke-width: 1.8; }
 .footer { padding: 4rem 0 7rem; color: #c1c2ba; background: #0b0c0a; border-top: 1px solid #30312c; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr .7fr .7fr; gap: 3rem; }
 .footer .logo { color: var(--white); }
-.footer p, .footer a { color: #888a82; font-size: .78rem; line-height: 1.7; }
+.footer p, .footer a { color: #999b92; font-size: .78rem; line-height: 1.7; }
+.footer a { display: inline-flex; min-height: 28px; align-items: center; }
 .footer a:hover { color: var(--yellow); }
 .footer h2 { margin: 0 0 1rem; color: var(--white); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
-.footer-bottom { margin-top: 3rem; padding-top: 1.5rem; display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid #272823; color: #676960; font-size: .65rem; }
+.footer-bottom { margin-top: 3rem; padding-top: 1.5rem; display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid #272823; color: #96988f; font-size: .65rem; }
 .mobile-actions { display: none; }
 
 .page-hero { position: relative; padding-block: clamp(5rem, 9vw, 8rem); overflow: hidden; color: var(--white); background: var(--ink); }

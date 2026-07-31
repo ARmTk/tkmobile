@@ -3,7 +3,7 @@ import type { Locale } from "@/config/site";
 
 export function Logo({ locale, compact = false }: { locale: Locale; compact?: boolean }) {
   return (
-    <Link className="logo" href={`/${locale}/`} aria-label="TK Mobile Service home">
+    <Link className="logo" href={`/${locale}/`} aria-label="TK MOBILE SERVICE">
       <span className="logo-mark" aria-hidden="true">
         <b>T</b><b>K</b><i />
       </span>

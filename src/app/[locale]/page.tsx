@@ -160,7 +160,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
       <section className="location-preview shell">
         <div><span className="eyebrow">05 — PATONG, PHUKET</span><h2>{c.locationTitle}</h2><p>{c.locationBody}</p><div className="parking-note">{c.parking}</div><a className="button button-dark" href={localPath(locale, "location")}>{locale === "en" ? "Plan your visit" : "ดูข้อมูลการเดินทาง"}<ArrowRight /></a></div>
-        <a className="map-panel" href={site.social.maps} target="_blank" rel="noreferrer" aria-label={locale === "en" ? "Open Google Maps" : "เปิด Google Maps"}><div className="map-grid" /><span className="road road-a" /><span className="road road-b" /><span className="map-pin"><b>TK</b></span><div className="map-label"><b>67/25 Phrabaramee Rd</b><small>PA TONG · PHUKET</small></div></a>
+        <a className="map-panel" href={site.social.maps} target="_blank" rel="noreferrer"><div className="map-grid" /><span className="road road-a" /><span className="road road-b" /><span className="map-pin"><b>TK</b></span><div className="map-label"><b>67/25 Phrabaramee Rd</b><small>PA TONG · PHUKET</small></div></a>
       </section>
 
       <section className="faq-section section shell"><div className="section-heading"><span className="eyebrow">06 — FAQ</span><h2>{c.faqTitle}</h2></div><div className="faq-list">{faqs[locale].map(([q, a]) => <details key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>

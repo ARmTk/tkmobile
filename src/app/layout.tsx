@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Technician Arm" }],
   creator: "TK Mobile Service",
   manifest: "/manifest.webmanifest",
+  icons: { icon: "/favicon.svg" },
   openGraph: {
     type: "website",
     siteName: "TK Mobile Service",
