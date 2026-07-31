@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/config/site";
+import { seoPages } from "@/content/seo-pages";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "services", "liquid-damage", "location", "about", "privacy"];
+  const pages = ["", "services", "liquid-damage", "location", "about", "privacy", ...seoPages.map((page) => page.slug)];
   return ["en", "th"].flatMap((locale) =>
     pages.map((page) => ({
       url: `${site.url}/${locale}/${page ? `${page}/` : ""}`,

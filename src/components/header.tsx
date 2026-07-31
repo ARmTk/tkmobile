@@ -15,13 +15,21 @@ export function Header({ locale }: { locale: Locale }) {
   const c = copy[locale];
   const other = otherLocale(locale);
   const alternate = pathname.replace(`/${locale}/`, `/${other}/`);
-  const links = [
-    [c.nav.home, localPath(locale)],
-    [c.nav.services, localPath(locale, "services")],
-    [c.nav.liquid, localPath(locale, "liquid-damage")],
-    [c.nav.location, localPath(locale, "location")],
-    [c.nav.about, localPath(locale, "about")]
-  ];
+  const links = locale === "en"
+    ? [
+        ["Screen", localPath(locale, "iphone-screen-repair")],
+        ["Battery", localPath(locale, "iphone-battery-replacement")],
+        ["Water damage", localPath(locale, "liquid-damage")],
+        ["Board repair", localPath(locale, "logic-board-repair")],
+        ["Visit us", localPath(locale, "location")]
+      ]
+    : [
+        ["เปลี่ยนจอ", localPath(locale, "iphone-screen-repair")],
+        ["เปลี่ยนแบต", localPath(locale, "iphone-battery-replacement")],
+        ["เครื่องตกน้ำ", localPath(locale, "liquid-damage")],
+        ["ซ่อมเมนบอร์ด", localPath(locale, "logic-board-repair")],
+        ["หน้าร้าน", localPath(locale, "location")]
+      ];
   return (
     <header className="site-header">
       <div className="header-inner">

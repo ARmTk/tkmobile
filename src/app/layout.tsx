@@ -15,9 +15,10 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "TK Mobile Service",
     locale: "en_TH",
-    alternateLocale: "th_TH"
+    alternateLocale: "th_TH",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "TK Mobile Service iPhone Repair Patong Phuket" }]
   },
-  twitter: { card: "summary" },
+  twitter: { card: "summary_large_image", images: ["/og.png"] },
   verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
 };
 

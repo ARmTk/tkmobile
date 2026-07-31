@@ -4,13 +4,13 @@ import { notFound } from "next/navigation";
 import { ContactStrip } from "@/components/contact-strip";
 import { JsonLd } from "@/components/json-ld";
 import { TrackedLink } from "@/components/tracked-link";
-import { site, type Locale } from "@/config/site";
+import { chatLink, site, type Locale } from "@/config/site";
 import { services } from "@/content/content";
+import { seoPageBySlug, seoPages, type SeoPage } from "@/content/seo-pages";
 
-const slugs = ["services", "liquid-damage", "location", "about", "privacy"] as const;
-type Slug = typeof slugs[number];
+const slugs = ["services", "liquid-damage", "location", "about", "privacy", ...seoPages.map((page) => page.slug)];
 
-const meta: Record<Slug, Record<Locale, [string, string]>> = {
+const meta: Record<string, Record<Locale, [string, string]>> = {
   services: {
     en: ["iPhone, iPad & Apple Device Repair", "iPhone and iPad screens, batteries, liquid damage, charging faults and logic board repair in Patong, Phuket."],
     th: ["บริการซ่อม iPhone และ iPad ภูเก็ต", "ซ่อมจอ แบตเตอรี่ เครื่องตกน้ำ ชาร์จไม่เข้า และเมนบอร์ด iPhone และ iPad ที่ป่าตอง ภูเก็ต"]
@@ -41,17 +41,21 @@ export const dynamicParams = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale; slug: string }> }): Promise<Metadata> {
   const { locale, slug: raw } = await params;
-  if (!slugs.includes(raw as Slug)) return {};
-  const slug = raw as Slug;
-  const [title, description] = meta[slug][locale];
+  if (!slugs.includes(raw)) return {};
+  const seoPage = seoPageBySlug[raw];
+  const [title, description] = seoPage
+    ? [seoPage.title[locale], seoPage.description[locale]]
+    : meta[raw][locale];
   return {
     title,
     description,
+    keywords: seoPage?.keywords[locale],
     alternates: {
-      canonical: `/${locale}/${slug}/`,
-      languages: { en: `/en/${slug}/`, th: `/th/${slug}/`, "x-default": `/en/${slug}/` }
+      canonical: `/${locale}/${raw}/`,
+      languages: { en: `/en/${raw}/`, th: `/th/${raw}/`, "x-default": `/en/${raw}/` }
     },
-    openGraph: { title, description, url: `/${locale}/${slug}/` }
+    openGraph: { title, description, url: `/${locale}/${raw}/`, images: [{ url: "/og.png", width: 1200, height: 630 }] },
+    twitter: { card: "summary_large_image", title, description, images: ["/og.png"] }
   };
 }
 
@@ -189,10 +193,68 @@ function PrivacyPage({ locale }: { locale: Locale }) {
   </>;
 }
 
+function SeoLandingPage({ locale, page }: { locale: Locale; page: SeoPage }) {
+  const en = locale === "en";
+  const schema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: page.title[locale],
+      description: page.description[locale],
+      url: `${site.url}/${locale}/${page.slug}/`,
+      provider: { "@id": `${site.url}/#business` },
+      areaServed: ["Patong", "Phuket"],
+      serviceType: page.keywords[locale][0]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: page.faq[locale].map(([question, answer]) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer }
+      }))
+    }
+  ];
+  return <>
+    <JsonLd data={schema} />
+    <PageHero eyebrow={page.eyebrow[locale]} title={page.h1[locale]} intro={page.intro[locale]} />
+    <section className="section shell seo-service-intro">
+      <div>
+        <span className="eyebrow">{en ? "WHAT TO EXPECT" : "สิ่งที่ควรรู้"}</span>
+        <h2>{en ? "A clear path from symptom to decision." : "จากอาการสู่การตัดสินใจอย่างชัดเจน"}</h2>
+        <p>{en ? "Send the exact model, symptom, photos, repair history and your area. The workshop confirms whether it can help, the likely inspection path and what must be verified before work." : "ส่งรุ่น อาการ รูป ประวัติซ่อม และพื้นที่ที่อยู่ ร้านจะยืนยันว่างานอยู่ในขอบเขตหรือไม่ แนวทางตรวจ และข้อมูลที่ต้องยืนยันก่อนเริ่มงาน"}</p>
+        <TrackedLink event={en ? "click_whatsapp" : "click_line"} className="button" href={chatLink(locale)} target="_blank" rel="noreferrer">{en ? "Send model + symptom" : "ส่งรุ่น + อาการ"}<ArrowRight /></TrackedLink>
+      </div>
+      <aside className="keyword-cluster" aria-label={en ? "Related repair searches" : "คำค้นหาที่เกี่ยวข้อง"}>
+        <span className="eyebrow">{en ? "RELATED SERVICES" : "บริการที่เกี่ยวข้อง"}</span>
+        <div>{page.keywords[locale].map((keyword) => <span key={keyword}>{keyword}</span>)}</div>
+        <small>{en ? "Keywords are used to describe the page topic, not to guarantee rankings." : "ใช้คีย์เวิร์ดเพื่ออธิบายหัวข้อของหน้า ไม่ใช่การรับประกันอันดับ"}</small>
+      </aside>
+    </section>
+    <section className="section shell">
+      <div className="seo-benefit-grid">{page.benefits.map((benefit, index) => <article key={benefit.title[locale]}><span className="detail-number">0{index + 1}</span><h2>{benefit.title[locale]}</h2><p>{benefit.body[locale]}</p></article>)}</div>
+    </section>
+    <section className="service-bands">
+      <div className="section shell">
+        <div className="section-heading light"><span className="eyebrow">{en ? "PROCESS" : "ขั้นตอน"}</span><h2>{en ? "Know the next step before travelling." : "รู้ขั้นตอนก่อนเดินทาง"}</h2></div>
+        <div className="process-grid">{page.steps[locale].map((step, index) => <article key={step}><span>0{index + 1}</span><h3>{step}</h3></article>)}</div>
+      </div>
+    </section>
+    <section className="faq-section section shell">
+      <div className="section-heading"><span className="eyebrow">FAQ</span><h2>{en ? "Questions about this repair" : "คำถามเกี่ยวกับงานนี้"}</h2></div>
+      <div className="faq-list">{page.faq[locale].map(([q, a]) => <details key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div>
+    </section>
+    <ContactStrip locale={locale} />
+  </>;
+}
+
 export default async function InfoPage({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
   const { locale, slug: raw } = await params;
-  if (!slugs.includes(raw as Slug)) notFound();
-  const slug = raw as Slug;
+  if (!slugs.includes(raw)) notFound();
+  const seoPage = seoPageBySlug[raw];
+  if (seoPage) return <SeoLandingPage locale={locale} page={seoPage} />;
+  const slug = raw;
   if (slug === "services") return <ServicesPage locale={locale} />;
   if (slug === "liquid-damage") return <LiquidPage locale={locale} />;
   if (slug === "location") return <LocationPage locale={locale} />;

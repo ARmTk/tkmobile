@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { DevelopmentNotice } from "@/components/development-notice";
 import { locales, type Locale } from "@/config/site";
 
 export function generateStaticParams() {
@@ -19,6 +20,7 @@ export default async function LocaleLayout({
   const locale = raw as Locale;
   return (
     <>
+      <DevelopmentNotice locale={locale} />
       <Header locale={locale} />
       <main>{children}</main>
       <Footer locale={locale} />
