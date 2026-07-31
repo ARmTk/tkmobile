@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 type HeroVisual = { src: string; alt: string; label: string };
 
 function PageHero({ eyebrow, title, intro, visual }: { eyebrow: string; title: string; intro: string; visual?: HeroVisual }) {
-  const heroVisual = visual ?? { src: "/images/tk-mobile-workshop-concept-v1.png", alt: "Premium mobile repair workshop visual concept", label: "AI VISUAL CONCEPT" };
+  const heroVisual = visual ?? { src: "/images/tk-mobile-workshop-concept-v1.webp", alt: "Premium mobile repair workshop visual concept", label: "AI VISUAL CONCEPT" };
   return <section className="page-hero"><div className="shell page-hero-inner"><div className="page-hero-copy"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{intro}</p></div><div className="page-hero-workshop" aria-label={heroVisual.alt}><Image src={heroVisual.src} alt={heroVisual.alt} fill sizes="(max-width: 760px) 92vw, 42vw" priority /><span>{heroVisual.label}</span></div></div></section>;
 }
 
@@ -71,13 +71,13 @@ function repairHeroVisual(slug: string, locale: Locale): HeroVisual | undefined 
   const en = locale === "en";
   const label = en ? "AI VISUAL CONCEPT" : "ภาพแนวคิด AI";
   const visuals: Record<string, HeroVisual> = {
-    "iphone-screen-repair": { src: "/images/repair-screen-concept-v1.png", alt: en ? "Screen replacement repair visual" : "ภาพงานเปลี่ยนหน้าจอ", label },
-    "iphone-battery-replacement": { src: "/images/repair-battery-concept-v1.png", alt: en ? "Battery replacement repair visual" : "ภาพงานเปลี่ยนแบตเตอรี่", label },
-    "logic-board-repair": { src: "/images/repair-board-concept-v1.png", alt: en ? "Logic board repair visual" : "ภาพงานซ่อมเมนบอร์ด", label },
-    "liquid-damage": { src: "/images/repair-liquid-concept-v1.png", alt: en ? "Liquid damage repair visual" : "ภาพงานเครื่องตกน้ำ", label },
-    "iphone-repair-patong": { src: "/images/tk-mobile-workshop-concept-v1.png", alt: en ? "Premium mobile repair workshop visual" : "ภาพเวิร์กช็อปซ่อมมือถือ", label },
-    "ipad-repair": { src: "/images/repair-screen-concept-v1.png", alt: en ? "Tablet screen repair visual" : "ภาพงานซ่อมหน้าจอแท็บเล็ต", label },
-    "macbook-repair": { src: "/images/repair-board-concept-v1.png", alt: en ? "Advanced electronics repair visual" : "ภาพงานซ่อมอิเล็กทรอนิกส์ขั้นสูง", label }
+    "iphone-screen-repair": { src: "/images/repair-screen-concept-v1.webp", alt: en ? "Screen replacement repair visual" : "ภาพงานเปลี่ยนหน้าจอ", label },
+    "iphone-battery-replacement": { src: "/images/repair-battery-concept-v1.webp", alt: en ? "Battery replacement repair visual" : "ภาพงานเปลี่ยนแบตเตอรี่", label },
+    "logic-board-repair": { src: "/images/repair-board-concept-v1.webp", alt: en ? "Logic board repair visual" : "ภาพงานซ่อมเมนบอร์ด", label },
+    "liquid-damage": { src: "/images/repair-liquid-concept-v1.webp", alt: en ? "Liquid damage repair visual" : "ภาพงานเครื่องตกน้ำ", label },
+    "iphone-repair-patong": { src: "/images/tk-mobile-workshop-concept-v1.webp", alt: en ? "Premium mobile repair workshop visual" : "ภาพเวิร์กช็อปซ่อมมือถือ", label },
+    "ipad-repair": { src: "/images/repair-screen-concept-v1.webp", alt: en ? "Tablet screen repair visual" : "ภาพงานซ่อมหน้าจอแท็บเล็ต", label },
+    "macbook-repair": { src: "/images/repair-board-concept-v1.webp", alt: en ? "Advanced electronics repair visual" : "ภาพงานซ่อมอิเล็กทรอนิกส์ขั้นสูง", label }
   };
   return visuals[slug];
 }

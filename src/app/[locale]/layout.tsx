@@ -22,7 +22,7 @@ export default async function LocaleLayout({
     <>
       <DevelopmentNotice locale={locale} />
       <Header locale={locale} />
-      <main>{children}</main>
+      <main lang={locale}>{children}</main>
       <Footer locale={locale} />
     </>
   );

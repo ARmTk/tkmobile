@@ -148,11 +148,20 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
     paymentAccepted: "Cash, Thai bank transfer, QR payment",
     currenciesAccepted: "THB"
   };
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${site.url}/#website`,
+    name: site.shortName,
+    url: site.url,
+    inLanguage: locale,
+    publisher: { "@id": `${site.url}/#business` }
+  };
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs[locale].map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) };
 
   return (
     <>
-      <JsonLd data={[businessSchema, faqSchema]} />
+      <JsonLd data={[businessSchema, websiteSchema, faqSchema]} />
 
       <section className="new-hero">
         <div className="shell new-hero-grid">
@@ -168,7 +177,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </div>
           <div className="storefront-hero-media">
             <Image
-              src="/images/tk-mobile-workshop-concept-v1.png"
+              src="/images/tk-mobile-workshop-concept-v1.webp"
               alt={en ? "Premium mobile repair workshop visual concept for TK Mobile Service" : "ภาพแนวคิดเวิร์กช็อปซ่อมมือถือพรีเมียมของ TK Mobile Service"}
               fill
               priority
