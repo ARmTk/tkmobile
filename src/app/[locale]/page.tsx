@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowRight, Check, Clock3, Droplets, GraduationCap, MapPin, MessageCircle, PackageCheck, ShieldCheck, Smartphone, Wrench } from "lucide-react";
 import { ContactStrip } from "@/components/contact-strip";
 import { JsonLd } from "@/components/json-ld";
@@ -165,11 +166,21 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             </div>
             <p className="hero-disclaimer">{en ? "Independent repair shop · Not Apple Authorized · Estimates must be confirmed" : "ร้านซ่อมอิสระ · ไม่ใช่ศูนย์ Apple Authorized · กรุณายืนยันข้อมูลก่อนใช้บริการ"}</p>
           </div>
-          <div className="repair-device" aria-label={en ? "iPhone diagnostic illustration" : "ภาพประกอบการตรวจ iPhone"}>
-            <div className="repair-device-top"><span>PATONG</span><b>11:00–20:00</b></div>
-            <div className="crack crack-a" /><div className="crack crack-b" /><div className="crack crack-c" />
-            <div className="diagnostic-pulse"><Wrench /><span>{en ? "DIAGNOSE" : "ตรวจอาการ"}</span></div>
-            <div className="device-status"><i /><span>{en ? "QUOTE BEFORE REPAIR" : "แจ้งก่อนซ่อม"}</span></div>
+          <div className="storefront-hero-media">
+            <Image
+              src="/images/tk-mobile-storefront-original-v1.jpg"
+              alt={en ? "TK Mobile Service storefront on Phrabaramee Road in Patong, Phuket" : "หน้าร้าน TK Mobile Service ถนนพระบารมี ป่าตอง ภูเก็ต"}
+              fill
+              priority
+              sizes="(max-width: 760px) 92vw, 42vw"
+            />
+            <div className="storefront-shade" />
+            <div className="storefront-proof">
+              <span><i />{en ? "REAL WORKSHOP" : "หน้าร้านจริง"}</span>
+              <strong>{en ? "Patong · Phuket" : "ป่าตอง · ภูเก็ต"}</strong>
+              <small>{en ? "67/25 Phrabaramee Road" : "67/25 ถนนพระบารมี"}</small>
+            </div>
+            <div className="storefront-crop-note">{en ? "Actual storefront photo" : "ภาพถ่ายสถานที่จริง"}</div>
           </div>
         </div>
         <div className="proof-strip shell">{c.proof.map((item) => <span key={item}><Check />{item}</span>)}</div>
