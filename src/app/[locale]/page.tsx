@@ -168,8 +168,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </div>
           <div className="storefront-hero-media">
             <Image
-              src="/images/tk-mobile-storefront-hero-v2.webp"
-              alt={en ? "Bright view of TK Mobile Service storefront in Patong, Phuket" : "ภาพหน้าร้าน TK Mobile Service ป่าตอง ภูเก็ต ที่ปรับแสงสำหรับหน้าปก"}
+              src="/images/tk-mobile-workshop-concept-v1.png"
+              alt={en ? "Premium mobile repair workshop visual concept for TK Mobile Service" : "ภาพแนวคิดเวิร์กช็อปซ่อมมือถือพรีเมียมของ TK Mobile Service"}
               fill
               priority
               sizes="(max-width: 760px) 92vw, 42vw"
@@ -179,7 +179,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
               <strong>{en ? "Patong · Phuket" : "ป่าตอง · ภูเก็ต"}</strong>
               <small>{en ? "67/25 Phrabaramee Road" : "67/25 ถนนพระบารมี"}</small>
             </div>
-            <div className="storefront-crop-note">{en ? "Enhanced from the real storefront" : "ตกแต่งจากภาพหน้าร้านจริง"}</div>
+            <div className="storefront-crop-note">{en ? "AI visual concept · real photos coming soon" : "ภาพแนวคิด AI · รอภาพร้านจริงเร็ว ๆ นี้"}</div>
           </div>
         </div>
         <div className="proof-strip shell">{c.proof.map((item) => <span key={item}><Check />{item}</span>)}</div>
