@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowRight, Check, Clock3, Droplets, GraduationCap, MapPin, MessageCircle, PackageCheck, ShieldCheck, Smartphone, Wrench } from "lucide-react";
+import { ArrowRight, Check, Clock3, Droplets, GraduationCap, MapPin, MessageCircle, PackageCheck, ShieldCheck, Smartphone, Star, Wrench } from "lucide-react";
 import { ContactStrip } from "@/components/contact-strip";
 import { JsonLd } from "@/components/json-ld";
 import { RepairPlanner } from "@/components/repair-planner";
@@ -48,6 +48,10 @@ const copy = {
     partsIntro: "Genuine new, genuine pulled, OEM and aftermarket options are described by their actual source, condition, availability and job-specific warranty. TK Mobile Service is independent and is not Apple Authorized.",
     trustKicker: "05 — WHY TK MOBILE",
     trustTitle: "Specialist thinking without vague promises.",
+    reviewKicker: "GOOGLE MAPS",
+    reviewTitle: "See what customers say before you visit.",
+    reviewText: "TK Mobile Service shows a 4.9 rating on Google Maps when checked. Open Google Maps to read the current customer reviews and latest rating.",
+    reviewAction: "Read Google reviews",
     trustCards: [
       ["Engineering background", "Technician Arm has a Computer Engineering background and more than 10 years of device-repair experience."],
       ["Board-level capability", "Difficult no-power, charging, liquid and data cases can be assessed beyond simple parts replacement."],
@@ -97,6 +101,10 @@ const copy = {
     partsIntro: "อะไหล่แท้ใหม่ แท้แกะ OEM และ Aftermarket จะอธิบายตามแหล่งที่มา สภาพ ความพร้อม และประกันเฉพาะงาน TK Mobile Service เป็นร้านอิสระ ไม่ใช่ศูนย์ Apple Authorized",
     trustKicker: "05 — ทำไมต้อง TK MOBILE",
     trustTitle: "คิดแบบผู้เชี่ยวชาญ โดยไม่ให้คำสัญญาเกินจริง",
+    reviewKicker: "GOOGLE MAPS",
+    reviewTitle: "ดูเสียงจากลูกค้าก่อนเข้าร้าน",
+    reviewText: "TK Mobile Service แสดงคะแนน 4.9 บน Google Maps ณ วันที่ตรวจสอบ เปิด Google Maps เพื่ออ่านรีวิวจากลูกค้าล่าสุดและดูคะแนนปัจจุบัน.",
+    reviewAction: "อ่านรีวิวบน Google Maps",
     trustCards: [
       ["พื้นฐานวิศวกรรม", "ช่างอาร์มมีพื้นฐานวิศวกรรมคอมพิวเตอร์และประสบการณ์ซ่อมอุปกรณ์มากกว่า 10 ปี"],
       ["รองรับงานระดับบอร์ด", "อาการเปิดไม่ติด ชาร์จไม่เข้า ตกน้ำ และกู้ข้อมูล สามารถตรวจได้ลึกกว่าการเปลี่ยนอะไหล่ทั่วไป"],
@@ -241,6 +249,16 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
               return <article key={title}><Icon /><h3>{title}</h3><p>{body}</p></article>;
             })}
           </div>
+        </div>
+      </section>
+
+      <section className="review-section">
+        <div className="shell review-panel">
+          <div className="review-score" aria-label={en ? "Google Maps rating 4.9 out of 5" : "คะแนน Google Maps 4.9 จาก 5"}>
+            <span>4.9</span><div><div className="review-stars">{Array.from({ length: 5 }, (_, index) => <Star key={index} fill="currentColor" />)}</div><small>{en ? "GOOGLE MAPS RATING" : "คะแนน GOOGLE MAPS"}</small></div>
+          </div>
+          <div className="review-copy"><span className="eyebrow">{c.reviewKicker}</span><h2>{c.reviewTitle}</h2><p>{c.reviewText}</p></div>
+          <TrackedLink event="click_google_reviews" className="button button-dark" href={site.social.maps} target="_blank" rel="noreferrer">{c.reviewAction}<ArrowRight /></TrackedLink>
         </div>
       </section>
 
