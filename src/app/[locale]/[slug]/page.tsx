@@ -82,6 +82,42 @@ function repairHeroVisual(slug: string, locale: Locale): HeroVisual | undefined 
   return visuals[slug];
 }
 
+function TabServiceDetails({ locale, slug }: { locale: Locale; slug: string }) {
+  const en = locale === "en";
+  const details: Record<string, { kicker: string; title: string; intro: string; cards: [string, string, string][]; send: string[] }> = {
+    "iphone-screen-repair": en ? {
+      kicker: "SCREEN REPAIR DETAILS", title: "A screen replacement is more than fitting glass.", intro: "The shop first confirms the iPhone model and checks whether the problem is cracked glass only, display damage, touch failure, lines, black screen or damage that may affect other functions.",
+      cards: [["COMMON SIGNS", "Cracked, black, lined or unresponsive", "Send a photo of the display and tell us whether touch, brightness and Face ID still work."], ["PART OPTIONS", "Explained by model and stock", "Available genuine, pulled, OEM and aftermarket options are described honestly before any work is approved."], ["AFTER FITTING", "Testing before handover", "Touch, display, brightness and functions included in the agreed scope are checked before collection."]],
+      send: ["Exact iPhone model", "Photo or short video of the screen", "Whether touch, display and Face ID work", "Your area and preferred visit time"]
+    } : {
+      kicker: "รายละเอียดเปลี่ยนจอ", title: "การเปลี่ยนจอไม่ใช่เพียงการเปลี่ยนกระจก.", intro: "ร้านจะยืนยันรุ่น iPhone และตรวจว่าเป็นกระจกแตก จอภาพเสีย ทัชไม่ได้ มีเส้น จอดำ หรือมีผลกับฟังก์ชันอื่นร่วมด้วยหรือไม่ก่อนเสนอราคา.",
+      cards: [["อาการที่พบ", "จอแตก จอดำ มีเส้น หรือทัชไม่ได้", "ส่งรูปหน้าจอและแจ้งว่าทัช ความสว่าง และ Face ID ยังทำงานหรือไม่."], ["ตัวเลือกอะไหล่", "อธิบายตามรุ่นและสต็อก", "อธิบายตัวเลือกแท้ แท้แกะ OEM และอะไหล่ทางเลือกตามจริงก่อนอนุมัติงาน."], ["หลังติดตั้ง", "ทดสอบก่อนรับเครื่อง", "ทดสอบทัช ภาพ ความสว่าง และฟังก์ชันตามขอบเขตที่ตกลงก่อนส่งมอบ."]],
+      send: ["รุ่น iPhone ที่แน่นอน", "รูปหรือวิดีโอหน้าจอ", "สถานะทัช หน้าจอ และ Face ID", "พื้นที่ที่อยู่และเวลาที่ต้องการเข้าร้าน"]
+    },
+    "iphone-battery-replacement": en ? {
+      kicker: "BATTERY SERVICE DETAILS", title: "Check the cause before replacing the battery.", intro: "Fast drain, heat, shutdowns and a battery warning can involve the battery or another fault. The proposal is based on the exact model, symptoms, part availability and inspection result.",
+      cards: [["COMMON SIGNS", "Drain, heat, shutdown or swelling", "Tell us how long the battery lasts, whether it gets hot, and whether the phone turns off unexpectedly."], ["BEFORE APPROVAL", "Part and iOS expectations", "The available part choice, relevant iOS status and job-specific warranty are explained before replacement."], ["AFTER SERVICE", "Function and charging check", "The device is tested within the agreed scope and practical battery care is explained at handover."]],
+      send: ["Exact iPhone model", "Battery Health screenshot if available", "Drain, heat or shutdown symptoms", "Any liquid or impact history"]
+    } : {
+      kicker: "รายละเอียดเปลี่ยนแบต", title: "ตรวจสาเหตุก่อนเปลี่ยนแบตเตอรี่.", intro: "แบตหมดเร็ว ร้อน ดับเอง หรือมีข้อความแจ้งเตือน อาจมาจากแบตหรือสาเหตุอื่น ร้านประเมินจากรุ่น อาการ สต็อกอะไหล่ และผลตรวจ.",
+      cards: [["อาการที่พบ", "หมดเร็ว ร้อน ดับเอง หรือแบตบวม", "แจ้งระยะเวลาการใช้งาน อาการร้อน และเครื่องดับเองหรือไม่."], ["ก่อนอนุมัติ", "ตัวเลือกอะไหล่และสถานะ iOS", "ร้านแจ้งตัวเลือกแบต สถานะ iOS ที่เกี่ยวข้อง และประกันตามงานก่อนเปลี่ยน."], ["หลังบริการ", "ทดสอบเครื่องและการชาร์จ", "ทดสอบตามขอบเขตที่ตกลงและแนะนำการดูแลแบตตอนส่งมอบ."]],
+      send: ["รุ่น iPhone ที่แน่นอน", "ภาพ Battery Health ถ้ามี", "อาการหมดเร็ว ร้อน หรือดับเอง", "ประวัติตกน้ำหรือกระแทก"]
+    },
+    "logic-board-repair": en ? {
+      kicker: "BOARD REPAIR DETAILS", title: "For faults that need diagnosis, not guessing.", intro: "No power, boot loop, abnormal charging, liquid exposure and failed previous repairs can need board-level diagnosis. The shop confirms a diagnostic scope before microsoldering or component work begins.",
+      cards: [["WHEN TO ASK", "No power, boot loop or complex fault", "Describe the last event, any liquid or impact, and whether another shop has opened or repaired the device."], ["DIAGNOSIS", "Systematic board-level assessment", "Power behaviour, relevant circuits and the repair-for-use or repair-for-data priority are discussed before work continues."], ["DECISION POINT", "Clear findings and stopping point", "The shop pauses when the risk, diagnostic result or repair value no longer supports continuing."]],
+      send: ["Exact model", "Last event before failure", "Liquid, impact and repair history", "Whether data recovery is the priority"]
+    } : {
+      kicker: "รายละเอียดซ่อมเมนบอร์ด", title: "สำหรับอาการที่ต้องตรวจ ไม่ใช่เดาเปลี่ยนอะไหล่.", intro: "เปิดไม่ติด บูตวน ชาร์จผิดปกติ ตกน้ำ หรือเคยซ่อมไม่สำเร็จ อาจต้องตรวจระดับบอร์ด ร้านจะยืนยันขอบเขตการตรวจก่อนทำ Microsoldering หรืองานชิ้นส่วน.",
+      cards: [["เมื่อควรปรึกษา", "เปิดไม่ติด บูตวน หรืออาการซับซ้อน", "แจ้งเหตุการณ์ก่อนเสีย ตกน้ำ กระแทก และเคยให้ร้านอื่นแกะหรือซ่อมหรือไม่."], ["การตรวจ", "ตรวจระดับบอร์ดอย่างเป็นระบบ", "ดูพฤติกรรมไฟ วงจรที่เกี่ยวข้อง และยืนยันก่อนว่าต้องการซ่อมเพื่อใช้งานหรือให้ความสำคัญกับข้อมูล."], ["จุดตัดสินใจ", "แจ้งผลและจุดหยุดชัดเจน", "ร้านหยุดเมื่อความเสี่ยง ผลตรวจ หรือความคุ้มค่าไม่สนับสนุนให้ทำต่อ."]],
+      send: ["รุ่นที่แน่นอน", "เหตุการณ์ล่าสุดก่อนเครื่องเสีย", "ประวัติตกน้ำ กระแทก และการซ่อม", "ต้องการเน้นกู้ข้อมูลหรือไม่"]
+    }
+  };
+  const detail = details[slug];
+  if (!detail) return null;
+  return <section className="tab-service-details section shell"><div className="section-heading wide"><span className="eyebrow">{detail.kicker}</span><h2>{detail.title}</h2><p>{detail.intro}</p></div><div className="tab-detail-grid">{detail.cards.map(([label, title, body]) => <article key={label}><span>{label}</span><h3>{title}</h3><p>{body}</p></article>)}</div><div className="tab-send-list"><div><span className="eyebrow">{en ? "SEND THIS FIRST" : "ส่งข้อมูลนี้ก่อน"}</span><h3>{en ? "One clear message helps the shop assess your case." : "ข้อความที่ข้อมูลครบ ช่วยให้ร้านประเมินได้เร็วขึ้น"}</h3></div><ul>{detail.send.map((item) => <li key={item}><Check />{item}</li>)}</ul></div></section>;
+}
+
 function ServicesPage({ locale }: { locale: Locale }) {
   const en = locale === "en";
   const schema = services.map((service) => ({
@@ -238,6 +274,7 @@ function SeoLandingPage({ locale, page }: { locale: Locale; page: SeoPage }) {
   return <>
     <JsonLd data={schema} />
     <PageHero eyebrow={page.eyebrow[locale]} title={page.h1[locale]} intro={page.intro[locale]} visual={repairHeroVisual(page.slug, locale)} />
+    <TabServiceDetails locale={locale} slug={page.slug} />
     <section className="section shell seo-service-intro">
       <div>
         <span className="eyebrow">{en ? "WHAT TO EXPECT" : "สิ่งที่ควรรู้"}</span>
