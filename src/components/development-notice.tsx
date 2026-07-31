@@ -5,9 +5,25 @@ import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/config/site";
 
 export function DevelopmentNotice({ locale }: { locale: Locale }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [ready, setReady] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const en = locale === "en";
+
+  useEffect(() => {
+    const storageKey = "tk-development-notice-seen";
+    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (navigation?.type === "reload") sessionStorage.removeItem(storageKey);
+    const shouldOpen = !sessionStorage.getItem(storageKey);
+    if (shouldOpen) {
+      sessionStorage.setItem(storageKey, "true");
+    }
+    const timer = window.setTimeout(() => {
+      setOpen(shouldOpen);
+      setReady(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (open) buttonRef.current?.focus();
@@ -23,7 +39,7 @@ export function DevelopmentNotice({ locale }: { locale: Locale }) {
             : "เว็บไซต์กำลังพัฒนา — กรุณายืนยันรายละเอียดกับร้านก่อนเดินทาง"}
         </span>
       </div>
-      {open && (
+      {ready && open && (
         <div className="notice-backdrop" role="presentation">
           <section
             className="development-dialog"
@@ -56,8 +72,8 @@ export function DevelopmentNotice({ locale }: { locale: Locale }) {
             </button>
             <small>
               {en
-                ? "This notice appears again whenever you enter or reload the website."
-                : "ประกาศนี้จะแสดงใหม่ทุกครั้งที่เข้าเว็บไซต์หรือโหลดหน้าใหม่"}
+                ? "This notice appears once per visit, and again when you reload the website."
+                : "ประกาศนี้จะแสดงครั้งเดียวต่อการเข้าชม และจะแสดงใหม่เมื่อกดรีเฟรชเว็บไซต์"}
             </small>
           </section>
         </div>
