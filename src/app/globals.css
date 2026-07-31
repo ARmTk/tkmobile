@@ -41,8 +41,9 @@ svg { width: 1.25em; height: 1.25em; stroke-width: 1.8; }
 .header-inner { min-height: 76px; width: min(1280px, calc(100% - 36px)); margin: auto; display: flex; align-items: center; justify-content: space-between; }
 .logo { display: inline-flex; align-items: center; gap: .65rem; }
 .logo-mark { position: relative; width: 46px; height: 36px; display: flex; align-items: center; font-size: 1.45rem; font-style: italic; letter-spacing: -.25em; overflow: hidden; }
-.logo-mark b { position: relative; z-index: 2; font-weight: 800; transform: skew(-10deg); }
-.logo-mark b:last-of-type { margin-left: .18em; }
+.logo-mark::before, .logo-mark::after { position: relative; z-index: 2; font-weight: 800; transform: skew(-10deg); }
+.logo-mark::before { content: "T"; }
+.logo-mark::after { content: "K"; margin-left: .18em; }
 .logo-mark i { position: absolute; right: 0; bottom: 3px; width: 34px; height: 7px; background: var(--yellow); transform: skew(-28deg); }
 .logo-type { display: grid; line-height: 1; }
 .logo-type strong { font-size: .93rem; letter-spacing: -.04em; }
@@ -153,6 +154,7 @@ svg { width: 1.25em; height: 1.25em; stroke-width: 1.8; }
 .footer { padding: 4rem 0 7rem; color: #c1c2ba; background: #0b0c0a; border-top: 1px solid #30312c; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr .7fr .7fr; gap: 3rem; }
 .footer .logo { color: var(--white); }
+.footer .logo-type small { color: #a4a69d; }
 .footer p, .footer a { color: #999b92; font-size: .78rem; line-height: 1.7; }
 .footer a { display: inline-flex; min-height: 28px; align-items: center; }
 .footer a:hover { color: var(--yellow); }

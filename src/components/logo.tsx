@@ -5,7 +5,7 @@ export function Logo({ locale, compact = false }: { locale: Locale; compact?: bo
   return (
     <Link className="logo" href={`/${locale}/`} aria-label="TK MOBILE SERVICE">
       <span className="logo-mark" aria-hidden="true">
-        <b>T</b><b>K</b><i />
+        <i />
       </span>
       {!compact && (
         <span className="logo-type">
