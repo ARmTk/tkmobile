@@ -30,6 +30,7 @@ export function Header({ locale }: { locale: Locale }) {
         ["Battery", localPath(locale, "iphone-battery-replacement")],
         ["Water damage", localPath(locale, "liquid-damage")],
         ["Board repair", localPath(locale, "logic-board-repair")],
+        ["Guides", localPath(locale, "guides")],
         ["Visit us", localPath(locale, "location")]
       ]
     : [
@@ -37,6 +38,7 @@ export function Header({ locale }: { locale: Locale }) {
         ["เปลี่ยนแบต", localPath(locale, "iphone-battery-replacement")],
         ["เครื่องตกน้ำ", localPath(locale, "liquid-damage")],
         ["ซ่อมเมนบอร์ด", localPath(locale, "logic-board-repair")],
+        ["คู่มือ", localPath(locale, "guides")],
         ["หน้าร้าน", localPath(locale, "location")]
       ];
   return (

@@ -7,6 +7,7 @@ import { RepairPlanner } from "@/components/repair-planner";
 import { TrackedLink } from "@/components/tracked-link";
 import { chatLink, openingHours, site, type Locale } from "@/config/site";
 import { faqs } from "@/content/content";
+import { guides } from "@/content/guides";
 import { localPath } from "@/lib/i18n";
 
 const copy = {
@@ -52,6 +53,11 @@ const copy = {
     reviewTitle: "See what customers say before you visit.",
     reviewText: "TK Mobile Service shows a 4.9 rating on Google Maps when checked. Open Google Maps to read the current customer reviews and latest rating.",
     reviewAction: "Read Google reviews",
+    guideKicker: "REPAIR GUIDES",
+    guideTitle: "Useful answers before you send the phone.",
+    guideIntro: "Practical guidance for common iPhone problems. Exact diagnosis, parts and timing are always confirmed case by case.",
+    guideAction: "Read guide",
+    allGuides: "Browse all guides",
     trustCards: [
       ["Engineering background", "Technician Arm has a Computer Engineering background and more than 10 years of device-repair experience."],
       ["Board-level capability", "Difficult no-power, charging, liquid and data cases can be assessed beyond simple parts replacement."],
@@ -105,6 +111,11 @@ const copy = {
     reviewTitle: "ดูเสียงจากลูกค้าก่อนเข้าร้าน",
     reviewText: "TK Mobile Service แสดงคะแนน 4.9 บน Google Maps ณ วันที่ตรวจสอบ เปิด Google Maps เพื่ออ่านรีวิวจากลูกค้าล่าสุดและดูคะแนนปัจจุบัน.",
     reviewAction: "อ่านรีวิวบน Google Maps",
+    guideKicker: "คู่มือก่อนซ่อม",
+    guideTitle: "คำตอบที่ควรรู้ ก่อนส่งเครื่องเข้าร้าน",
+    guideIntro: "คำแนะนำสำหรับอาการ iPhone ที่พบบ่อย การตรวจ อะไหล่ และเวลาจริงจะยืนยันเป็นรายเครื่องเสมอ",
+    guideAction: "อ่านคู่มือ",
+    allGuides: "ดูคู่มือทั้งหมด",
     trustCards: [
       ["พื้นฐานวิศวกรรม", "ช่างอาร์มมีพื้นฐานวิศวกรรมคอมพิวเตอร์และประสบการณ์ซ่อมอุปกรณ์มากกว่า 10 ปี"],
       ["รองรับงานระดับบอร์ด", "อาการเปิดไม่ติด ชาร์จไม่เข้า ตกน้ำ และกู้ข้อมูล สามารถตรวจได้ลึกกว่าการเปลี่ยนอะไหล่ทั่วไป"],
@@ -259,6 +270,13 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </div>
           <div className="review-copy"><span className="eyebrow">{c.reviewKicker}</span><h2>{c.reviewTitle}</h2><p>{c.reviewText}</p></div>
           <TrackedLink event="click_google_reviews" className="button button-dark" href={site.social.maps} target="_blank" rel="noreferrer">{c.reviewAction}<ArrowRight /></TrackedLink>
+        </div>
+      </section>
+
+      <section className="guide-preview-section">
+        <div className="section shell">
+          <div className="guide-preview-heading"><div><span className="eyebrow">{c.guideKicker}</span><h2>{c.guideTitle}</h2><p>{c.guideIntro}</p></div><a className="text-link" href={localPath(locale, "guides")}>{c.allGuides}<ArrowRight /></a></div>
+          <div className="guide-preview-grid">{guides.map((guide) => <article key={guide.slug}><div className="guide-preview-image"><Image src={guide.image} alt={guide.imageAlt[locale]} fill sizes="(max-width: 760px) 92vw, 31vw" /><small>{en ? "AI VISUAL CONCEPT" : "ภาพแนวคิด AI"}</small></div><span>{guide.category[locale]}</span><h3>{guide.title[locale]}</h3><p>{guide.excerpt[locale]}</p><a className="text-link" href={localPath(locale, `guides/${guide.slug}`)}>{c.guideAction}<ArrowRight /></a></article>)}</div>
         </div>
       </section>
 
