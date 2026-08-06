@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowRight, Check, Clock3, Droplets, GraduationCap, MapPin, MessageCircle, PackageCheck, ShieldCheck, Smartphone, Star, Wrench } from "lucide-react";
+import { ArrowRight, BadgeCheck, Check, CheckCircle2, ClipboardCheck, Clock3, Droplets, GraduationCap, MapPin, MessageCircle, PackageCheck, SearchCheck, ShieldCheck, Smartphone, Star, Wrench } from "lucide-react";
 import { ContactStrip } from "@/components/contact-strip";
 import { JsonLd } from "@/components/json-ld";
 import { RepairPlanner } from "@/components/repair-planner";
@@ -19,6 +19,8 @@ const copy = {
     chat: "Get an assessment on WhatsApp",
     map: "Open directions",
     proof: ["10+ years’ repair experience", "Computer Engineering background", "English chat support", "Walk-ins welcome"],
+    heroFeatures: [["Diagnosis first", "Understand the symptom before choosing a repair."], ["Clear part options", "Source, condition and job terms explained."], ["Approval before work", "No additional work without your confirmation."], ["Test before handover", "Functions checked within the agreed scope."]],
+    heroProcess: [["Tell us the symptom", "Model + issue"], ["Confirm the plan", "Options + scope"], ["Repair with care", "Approved work"], ["Test & hand over", "Before collection"]],
     chooseKicker: "01 — CHOOSE THE FAULT",
     chooseTitle: "Start with what happened to the phone.",
     chooseIntro: "Select the closest symptom to see the likely service path. Times are estimates and must be confirmed with the workshop.",
@@ -77,6 +79,8 @@ const copy = {
     chat: "ประเมินอาการผ่าน LINE",
     map: "เปิดเส้นทาง",
     proof: ["ประสบการณ์งานซ่อมกว่า 10 ปี", "พื้นฐานวิศวกรรมคอมพิวเตอร์", "รองรับแชตภาษาอังกฤษ", "รับ Walk-in"],
+    heroFeatures: [["ตรวจอาการก่อน", "เข้าใจปัญหาก่อนเลือกแนวทางซ่อม"], ["อธิบายตัวเลือกอะไหล่", "แจ้งแหล่งที่มา สภาพ และเงื่อนไขตามงาน"], ["อนุมัติก่อนทำงาน", "ไม่ทำงานเพิ่มโดยไม่ยืนยันกับลูกค้า"], ["ทดสอบก่อนส่งมอบ", "ตรวจฟังก์ชันตามขอบเขตที่ตกลง"]],
+    heroProcess: [["แจ้งรุ่นและอาการ", "ส่งข้อมูลเบื้องต้น"], ["ยืนยันแนวทาง", "ตัวเลือกและขอบเขต"], ["ซ่อมอย่างรอบคอบ", "ตามงานที่อนุมัติ"], ["ทดสอบก่อนส่งมอบ", "ก่อนรับเครื่องกลับ"]],
     chooseKicker: "01 — เลือกอาการเสีย",
     chooseTitle: "เริ่มจากสิ่งที่เกิดขึ้นกับเครื่อง",
     chooseIntro: "เลือกอาการที่ใกล้เคียงเพื่อดูแนวทางบริการ เวลาเป็นเพียงค่าประมาณและต้องยืนยันกับร้านอีกครั้ง",
@@ -188,6 +192,10 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <span className="eyebrow">{c.kicker}</span>
             <h1>{c.title}<br /><em>{c.accent}</em></h1>
             <p className="lead">{c.intro}</p>
+            <div className="hero-feature-grid">{c.heroFeatures.map(([title, detail], index) => {
+              const Icon = [SearchCheck, BadgeCheck, ClipboardCheck, CheckCircle2][index];
+              return <div key={title}><Icon /><span><b>{title}</b><small>{detail}</small></span></div>;
+            })}</div>
             <div className="hero-actions">
               <TrackedLink event={en ? "click_whatsapp" : "click_line"} className="button" href={chatLink(locale)} target="_blank" rel="noreferrer">{c.chat}<ArrowRight /></TrackedLink>
               <TrackedLink event="click_directions" className="button button-secondary" href={site.social.maps} target="_blank" rel="noreferrer"><MapPin />{c.map}</TrackedLink>
@@ -210,7 +218,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <div className="storefront-crop-note">{en ? "AI visual concept · real photos coming soon" : "ภาพแนวคิด AI · รอภาพร้านจริงเร็ว ๆ นี้"}</div>
           </div>
         </div>
-        <div className="proof-strip shell">{c.proof.map((item) => <span key={item}><Check />{item}</span>)}</div>
+        <div className="hero-process shell"><div className="hero-process-heading"><span>{en ? "THE TK PROCESS" : "ขั้นตอนการบริการ TK"}</span><b>{en ? "Clear from first message to handover." : "ชัดเจนตั้งแต่ข้อความแรกจนถึงส่งมอบ"}</b></div><div className="hero-process-steps">{c.heroProcess.map(([title, detail], index) => { const Icon = [MessageCircle, ClipboardCheck, Wrench, ShieldCheck][index]; return <article key={title}><span>0{index + 1}</span><Icon /><div><b>{title}</b><small>{detail}</small></div></article>; })}</div></div>
       </section>
 
       <section className="section shell">
