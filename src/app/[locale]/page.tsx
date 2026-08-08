@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowRight, BadgeCheck, Check, CheckCircle2, ClipboardCheck, Clock3, Droplets, GraduationCap, MapPin, MessageCircle, PackageCheck, SearchCheck, ShieldCheck, Smartphone, Star, Wrench } from "lucide-react";
+import { ArrowRight, Check, Clock3, Droplets, GraduationCap, MapPin, MessageCircle, PackageCheck, ShieldCheck, Smartphone, Star, Wrench } from "lucide-react";
 import { ContactStrip } from "@/components/contact-strip";
 import { JsonLd } from "@/components/json-ld";
 import { RepairPlanner } from "@/components/repair-planner";
@@ -192,10 +192,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <span className="eyebrow">{c.kicker}</span>
             <h1>{c.title}<br /><em>{c.accent}</em></h1>
             <p className="lead">{c.intro}</p>
-            <div className="hero-feature-grid">{c.heroFeatures.map(([title, detail], index) => {
-              const Icon = [SearchCheck, BadgeCheck, ClipboardCheck, CheckCircle2][index];
-              return <div key={title}><Icon /><span><b>{title}</b><small>{detail}</small></span></div>;
-            })}</div>
             <div className="hero-actions">
               <TrackedLink event={en ? "click_whatsapp" : "click_line"} className="button" href={chatLink(locale)} target="_blank" rel="noreferrer">{c.chat}<ArrowRight /></TrackedLink>
               <TrackedLink event="click_directions" className="button button-secondary" href={site.social.maps} target="_blank" rel="noreferrer"><MapPin />{c.map}</TrackedLink>
@@ -204,21 +200,20 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </div>
           <div className="storefront-hero-media">
             <Image
-              src="/images/tk-mobile-workshop-concept-v1.webp"
-              alt={en ? "Premium mobile repair workshop visual concept for TK Mobile Service" : "ภาพแนวคิดเวิร์กช็อปซ่อมมือถือพรีเมียมของ TK Mobile Service"}
+              src="/images/tk-mobile-storefront-hero-v2.webp"
+              alt={en ? "TK Mobile Service storefront in Patong, Phuket" : "หน้าร้าน TK Mobile Service ที่ป่าตอง ภูเก็ต"}
               fill
               priority
               sizes="(max-width: 760px) 92vw, 42vw"
             />
-            <div className="storefront-proof">
-              <span><i />{en ? "PATONG WORKSHOP" : "เวิร์กช็อปป่าตอง"}</span>
-              <strong>{en ? "Patong · Phuket" : "ป่าตอง · ภูเก็ต"}</strong>
-              <small>{en ? "67/25 Phrabaramee Road" : "67/25 ถนนพระบารมี"}</small>
-            </div>
-            <div className="storefront-crop-note">{en ? "AI visual concept · real photos coming soon" : "ภาพแนวคิด AI · รอภาพร้านจริงเร็ว ๆ นี้"}</div>
+            <div className="storefront-caption"><span>{en ? "TK MOBILE SERVICE" : "TK MOBILE SERVICE"}</span><b>{en ? "Patong, Phuket" : "ป่าตอง, ภูเก็ต"}</b><small>{en ? "Actual storefront" : "หน้าร้านจริง"}</small></div>
           </div>
         </div>
-        <div className="hero-process shell"><div className="hero-process-heading"><span>{en ? "THE TK PROCESS" : "ขั้นตอนการบริการ TK"}</span><b>{en ? "Clear from first message to handover." : "ชัดเจนตั้งแต่ข้อความแรกจนถึงส่งมอบ"}</b></div><div className="hero-process-steps">{c.heroProcess.map(([title, detail], index) => { const Icon = [MessageCircle, ClipboardCheck, Wrench, ShieldCheck][index]; return <article key={title}><span>0{index + 1}</span><Icon /><div><b>{title}</b><small>{detail}</small></div></article>; })}</div></div>
+        <div className="atelier-rail shell">
+          <p>{en ? "The TK approach" : "มาตรฐานการทำงานของ TK"}</p>
+          <div>{c.heroFeatures.map(([title, detail], index) => <article key={title}><span>0{index + 1}</span><b>{title}</b><small>{detail}</small></article>)}</div>
+        </div>
+        <div className="hero-process shell"><span>{en ? "From message to handover" : "ตั้งแต่ทักจนส่งมอบ"}</span><div className="hero-process-steps">{c.heroProcess.map(([title, detail], index) => <article key={title}><b>0{index + 1} · {title}</b><small>{detail}</small></article>)}</div></div>
       </section>
 
       <section className="section shell">

@@ -10,16 +10,16 @@ export function Footer({ locale }: { locale: Locale }) {
   return (
     <>
       <footer className="footer">
-        <div className="footer-grid shell">
-          <div><Logo locale={locale} /><p>{locale === "en" ? "Quality repairs. Transparent choices." : "งานซ่อมคุณภาพ ทางเลือกที่โปร่งใส"}</p></div>
-          <div><h2>{locale === "en" ? "Visit" : "หน้าร้าน"}</h2><p>{site.address[locale]}</p><p>{c.open}<br />{c.closed}</p></div>
-          <div><h2>{locale === "en" ? "Contact" : "ติดต่อ"}</h2><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a><br /><a href={site.social.line}>LINE {site.lineId}</a><br /><a href={site.social.whatsapp}>WhatsApp</a></div>
-          <div><h2>{locale === "en" ? "Repairs" : "งานซ่อม"}</h2>
-            <a href={localPath(locale, "iphone-screen-repair")}>{locale === "en" ? "iPhone screen" : "เปลี่ยนจอ iPhone"}</a><br />
-            <a href={localPath(locale, "iphone-battery-replacement")}>{locale === "en" ? "iPhone battery" : "เปลี่ยนแบต iPhone"}</a><br />
-            <a href={localPath(locale, "logic-board-repair")}>{locale === "en" ? "Logic board" : "ซ่อมเมนบอร์ด"}</a><br />
-            <a href={localPath(locale, "liquid-damage")}>{c.nav.liquid}</a><br />
-            <a href={localPath(locale, "ipad-repair")}>{locale === "en" ? "iPad repair" : "ซ่อม iPad"}</a><br />
+        <div className="footer-mast shell">
+          <Logo locale={locale} />
+          <p className="footer-statement">{locale === "en" ? "Careful repair, with the next step explained first." : "ซ่อมอย่างละเอียด พร้อมอธิบายขั้นตอนถัดไปก่อนเสมอ"}</p>
+          <div className="footer-details"><span>{site.address[locale]}</span><span>{c.open} · {c.closed}</span><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a><a href={site.social.line}>LINE {site.lineId}</a><a href={site.social.whatsapp}>WhatsApp</a></div>
+          <div className="footer-links" aria-label={locale === "en" ? "Repair services" : "บริการซ่อม"}>
+            <a href={localPath(locale, "iphone-screen-repair")}>{locale === "en" ? "iPhone screen" : "เปลี่ยนจอ iPhone"}</a>
+            <a href={localPath(locale, "iphone-battery-replacement")}>{locale === "en" ? "iPhone battery" : "เปลี่ยนแบต iPhone"}</a>
+            <a href={localPath(locale, "logic-board-repair")}>{locale === "en" ? "Logic board" : "ซ่อมเมนบอร์ด"}</a>
+            <a href={localPath(locale, "liquid-damage")}>{c.nav.liquid}</a>
+            <a href={localPath(locale, "ipad-repair")}>{locale === "en" ? "iPad repair" : "ซ่อม iPad"}</a>
             <a href={localPath(locale, "macbook-repair")}>{locale === "en" ? "MacBook repair" : "ซ่อม MacBook"}</a>
           </div>
         </div>
